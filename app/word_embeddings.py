@@ -1,6 +1,5 @@
 """
 Implements word and sentence embeddings using spaCy,
-following the Marimo notebook structure.
 """
 # Get a word vector (nlp(word).vector)
 # Compute cosine similarity between two words’ vectors
@@ -29,7 +28,6 @@ class WordEmbeddings:
     def calculate_embedding(self, word: str) -> list[float]:
         """
         Return embedding vector for a single word.
-        Equivalent to notebook's calculate_embedding().
         """
         doc = self.nlp(word)
         if not doc[0].has_vector:
@@ -39,7 +37,6 @@ class WordEmbeddings:
     def calculate_similarity(self, word1: str, word2: str) -> float:
         """
         Compute cosine similarity between two words.
-        Equivalent to notebook's calculate_similarity().
         """
         vec1 = self.nlp(word1).vector
         vec2 = self.nlp(word2).vector
@@ -48,7 +45,6 @@ class WordEmbeddings:
     def sentence_similarity(self, query: str, candidates: list[str]) -> dict[str, float]:
         """
         Compute similarity between a query sentence and multiple candidate sentences.
-        Equivalent to the notebook's query/info examples.
         Returns a dict mapping candidate -> similarity score.
         """
         q_doc = self.nlp(query)
@@ -61,7 +57,6 @@ class WordEmbeddings:
     def get_sentence_embedding(self, sentence: str) -> list[float]:
         """
         Return the embedding vector for a sentence.
-        (spaCy Doc.vector = mean of token vectors).
         """
         doc = self.nlp(sentence)
         return doc.vector.tolist()
