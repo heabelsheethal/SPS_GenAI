@@ -14,7 +14,7 @@ import random
 import re
 
 class BigramModel:
-    def __init__(self, corpus, frequency_threshold=5):
+    def __init__(self, corpus, frequency_threshold=1):
         self.corpus = corpus
         self.frequency_threshold = frequency_threshold
         self.vocab, self.bigram_probs = self.analyze_bigrams(" ".join(corpus))
@@ -22,18 +22,14 @@ class BigramModel:
 
 
     def simple_tokenizer(self, text):
-        """Simple tokenizer that splits text into words."""
-        # Convert to lowercase and extract words using regex
-        tokens = re.findall(r"\b\w+\b", text.lower())
-        if not self.frequency_threshold:
-            return tokens
-        # Count word frequencies
-        word_counts = Counter(tokens)
-        # Define a threshold for less frequent words (e.g., words appearing fewer than 5 times)
-        filtered_tokens = [
-            token for token in tokens if word_counts[token] >= self.frequency_threshold
-        ]
-        return filtered_tokens
+        """Simple tokenizer that splits text into lowercase words without filtering."""
+        # Remove punctuation
+        text = re.sub(r"[^\w\s]", "", text)
+        # Split by whitespace
+        tokens = text.lower().split()
+        return tokens
+
+
 
     def analyze_bigrams(self, text):
         """Analyze text to compute bigram probabilities."""
@@ -70,6 +66,7 @@ class BigramModel:
             current_word = next_word  # Move to the next word
 
         return " ".join(generated_words)
+
 
 
     def print_bigram_probs_matrix_python(self, vocab):
