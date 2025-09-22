@@ -80,3 +80,10 @@ def embed_query(request: QueryRequest):
     _check_embeddings_available()
     results = embeddings.sentence_similarity(request.query, request.infos)
     return {"query": request.query, "results": results}
+
+
+
+
+# ------------------------- Run the app -------------------------
+# To run the app, use the command: 
+# uvicorn app.main:app --reload
